@@ -1,0 +1,8 @@
+name: 'Translation Completeness'
+type: module
+description: 'Analyzes multilingual translation dependencies and provides a smart language switcher with translation completeness percentage.'
+package: Custom
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:language
+  - drupal:content_translation

@@ -1,0 +1,4 @@
+services:
+  translation_completeness.analyzer:
+    class: Drupal\translation_completeness\Service\TranslationAnalyzer
+    arguments: ['@entity_type.manager']
