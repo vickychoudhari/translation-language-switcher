@@ -63,6 +63,16 @@ class TranslationAnalyzer {
         // Switch to the translated entity for further field inspection.
         $entity = $entity->getTranslation($langcode);
       }
+      else {
+        // If the entity is translatable but has no translation for the requested
+        // language, we should stop here. Analyzing its untranslated fields
+        // would yield inaccurate percentages.
+        return [
+          'percentage' => 0,
+          'total_items' => $total_items,
+          'translated_items' => 0,
+        ];
+      }
     }
 
     // Iterate through all fields to find references (e.g., paragraphs, taxonomy, media).

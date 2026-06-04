@@ -139,7 +139,6 @@ class SmartLanguageSwitcherBlock extends BlockBase implements ContainerFactoryPl
     return [
       '#theme' => 'item_list',
       '#items' => $items,
-      '#title' => $this->t('Languages'),
       '#attributes' => ['class' => ['smart-language-switcher']],
       '#cache' => [
         'contexts' => ['url.path', 'languages'],
