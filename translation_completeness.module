@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function translation_completeness_theme($existing, $type, $theme, $path) {
+  return [
+    'smart_language_switcher' => [
+      'variables' => [
+        'items' => [],
+      ],
+    ],
+  ];
+}

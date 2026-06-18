@@ -1,35 +1,193 @@
-.smart-language-switcher {
+/* Premium Glassmorphism Design for Smart Language Switcher */
+:root {
+  --tc-primary: #4F46E5;
+  --tc-primary-hover: #4338CA;
+  --tc-complete: #10B981;
+  --tc-bg: rgba(255, 255, 255, 0.8);
+  --tc-bg-hover: rgba(255, 255, 255, 0.95);
+  --tc-border: rgba(255, 255, 255, 0.5);
+  --tc-text: #1F2937;
+  --tc-text-muted: #6B7280;
+  --tc-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --tc-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.tc-smart-switcher {
+  background: var(--tc-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--tc-border);
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: var(--tc-shadow);
+  max-width: 350px;
+  margin: 1rem 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.tc-smart-switcher:hover {
+  box-shadow: var(--tc-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.tc-switcher-header {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.tc-icon {
+  font-size: 1.25rem;
+}
+
+.tc-title {
+  font-weight: 600;
+  color: var(--tc-text);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tc-language-list {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
-.smart-language-switcher li {
+.tc-language-item {
   margin: 0;
   padding: 0;
 }
 
-.smart-language-switcher a {
-  display: inline-block;
-  padding: 5px 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+.tc-language-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.05);
   text-decoration: none;
-  color: #333;
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.smart-language-switcher a:hover,
-.smart-language-switcher a:focus {
-  background-color: #f5f5f5;
-  border-color: #ccc;
+.tc-language-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--tc-primary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.smart-language-switcher a.is-active {
-  background-color: #0056b3;
-  color: white;
-  border-color: #0056b3;
+.tc-language-link:hover,
+.tc-language-link:focus {
+  background: var(--tc-bg-hover);
+  border-color: rgba(79, 70, 229, 0.2);
+  transform: scale(1.02);
+}
+
+.tc-language-item.is-active .tc-language-link {
+  background: white;
+  border-color: rgba(79, 70, 229, 0.3);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.tc-language-item.is-active .tc-language-link::before {
+  opacity: 1;
+}
+
+.tc-language-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tc-language-name {
+  font-weight: 600;
+  color: var(--tc-text);
+  font-size: 1rem;
+}
+
+.tc-language-code {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--tc-primary);
+  background: rgba(79, 70, 229, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.tc-language-progress-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.tc-progress-bar {
+  flex-grow: 1;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.tc-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366F1, #8B5CF6);
+  border-radius: 999px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tc-progress-fill.is-complete {
+  background: linear-gradient(90deg, #10B981, #34D399);
+}
+
+.tc-percentage {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--tc-text-muted);
+  min-width: 3ch;
+  text-align: right;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --tc-bg: rgba(31, 41, 55, 0.8);
+    --tc-bg-hover: rgba(55, 65, 81, 0.95);
+    --tc-border: rgba(255, 255, 255, 0.1);
+    --tc-text: #F9FAFB;
+    --tc-text-muted: #9CA3AF;
+  }
+  
+  .tc-switcher-header {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .tc-language-link {
+    background: rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  .tc-language-item.is-active .tc-language-link {
+    background: rgba(55, 65, 81, 1);
+    border-color: rgba(79, 70, 229, 0.5);
+  }
+  
+  .tc-progress-bar {
+    background: rgba(255, 255, 255, 0.1);
+  }
 }

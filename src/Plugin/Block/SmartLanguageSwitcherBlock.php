@@ -101,12 +101,12 @@ class SmartLanguageSwitcherBlock extends BlockBase implements ContainerFactoryPl
     $items = [];
     foreach ($languages as $language) {
       $langcode = $language->getId();
-      $percentage_text = '';
+      $percentage = 100;
 
       // If we are viewing an entity, analyze translation completeness.
       if ($current_entity) {
         $analysis = $this->translationAnalyzer->analyze($current_entity, $langcode);
-        $percentage_text = ' (' . $analysis['percentage'] . '%)';
+        $percentage = $analysis['percentage'];
       }
 
       $url = Url::fromRoute($route_name, $route_parameters, [
@@ -118,28 +118,18 @@ class SmartLanguageSwitcherBlock extends BlockBase implements ContainerFactoryPl
         $url = Url::fromRoute('<front>', [], ['language' => $language]);
       }
 
-      $link_text = $language->getName() . $percentage_text;
-      
-      $classes = ['language-link'];
-      if ($langcode === $current_language->getId()) {
-        $classes[] = 'is-active';
-      }
-
       $items[] = [
-        '#type' => 'link',
-        '#title' => $link_text,
-        '#url' => $url,
-        '#attributes' => [
-          'class' => $classes,
-          'hreflang' => $langcode,
-        ],
+        'name' => $language->getName(),
+        'langcode' => $langcode,
+        'url' => $url->toString(),
+        'percentage' => $percentage,
+        'is_active' => ($langcode === $current_language->getId()),
       ];
     }
 
     return [
-      '#theme' => 'item_list',
+      '#theme' => 'smart_language_switcher',
       '#items' => $items,
-      '#attributes' => ['class' => ['smart-language-switcher']],
       '#cache' => [
         'contexts' => ['url.path', 'languages'],
         // Disable cache to always reflect current translation status.

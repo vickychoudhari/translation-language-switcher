@@ -1,0 +1,38 @@
+{#
+/**
+ * @file
+ * Theme implementation for the smart language switcher block.
+ *
+ * Available variables:
+ * - items: A list of language items, each containing:
+ *   - name: The name of the language.
+ *   - langcode: The language code.
+ *   - url: The URL to the translated entity or front page.
+ *   - percentage: The translation completeness percentage.
+ *   - is_active: A boolean indicating if this is the active language.
+ */
+#}
+<div class="tc-smart-switcher">
+  <div class="tc-switcher-header">
+    <span class="tc-icon">🌐</span>
+    <span class="tc-title">{{ 'Select Language'|t }}</span>
+  </div>
+  <ul class="tc-language-list">
+    {% for item in items %}
+      <li class="tc-language-item {% if item.is_active %}is-active{% endif %}">
+        <a href="{{ item.url }}" hreflang="{{ item.langcode }}" class="tc-language-link">
+          <div class="tc-language-info">
+            <span class="tc-language-name">{{ item.name }}</span>
+            <span class="tc-language-code">{{ item.langcode|upper }}</span>
+          </div>
+          <div class="tc-language-progress-wrapper">
+            <div class="tc-progress-bar">
+              <div class="tc-progress-fill {% if item.percentage == 100 %}is-complete{% endif %}" style="width: {{ item.percentage }}%;"></div>
+            </div>
+            <span class="tc-percentage">{{ item.percentage }}%</span>
+          </div>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
